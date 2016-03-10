@@ -18,13 +18,13 @@ def main(*args):
         query = args[1]
 
     print_state('Fetching wallpapers... ')
-    response = search_for_image(query=query, safe=True, width=2 * 1920, height=1080, age_days=30)
+    response = search_for_image(query=query, safe=True, photo_only=True, width=2 * 1920, height=1080, age_days=30)
     images = parse_images(response.content)
     print_state('{}\n'.format(len(images)))
 
     random_image = random.choice(images)
 
-    print('Downloading wallpaper... {!r} >> {!r}'.format(random_image['url'], image_path))
+    print_state('Downloading wallpaper... {!r} >> {!r}\n'.format(random_image['url'], image_path))
     download_image(random_image, image_path)
     print_state('Done\n')
 
@@ -55,14 +55,14 @@ def parse_images(html):
     return results
 
 
-def search_for_image(query, safe=False, width=None, height=None, age_days=None):
+def search_for_image(query, safe=False, photo_only=False, width=None, height=None, age_days=None):
     query_params = {
         'q': query,
         'safe': 'on' if safe else 'off',
         'site': 'webhp',
         'tbm': 'isch',
         'source': 'lnt',
-        'tbs': ','.join(['{}:{}'.format(k, v) for k, v in get_image_params(width, height, age_days).items()])
+        'tbs': ','.join(['{}:{}'.format(k, v) for k, v in get_image_params(photo_only, width, height, age_days).items()])
     }
 
     headers = {
@@ -87,10 +87,11 @@ def download_image(image, destination_path):
         fd.flush()
 
 
-def get_image_params(width=None, height=None, age_days=None):
-    params = {
-        'itp': 'photo'
-    }
+def get_image_params(photo_only=False, width=None, height=None, age_days=None):
+    params = {}
+
+    if photo_only:
+        params['itp'] = 'photo'
 
     if not width:
         width = height
