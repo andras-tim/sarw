@@ -47,13 +47,18 @@ class Desktop(object):
             wallpaper_path=wallpaper_path,
         ))
 
+        cls._run_set_wallpaper(output_name, None)
+        cls._run_set_wallpaper(output_name, wallpaper_path)
+
+    @classmethod
+    def _run_set_wallpaper(cls, output_name, wallpaper_path):
         subprocess.check_call([
             'xfconf-query',
             '-c', 'xfce4-desktop',
             '-p', '/backdrop/screen0/monitor{output_name}/workspace0/last-image'.format(output_name=output_name),
             '-n',
             '-t', 'string',
-            '-s', wallpaper_path,
+            '-s', '' if wallpaper_path is None else wallpaper_path,
         ])
 
 
