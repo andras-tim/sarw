@@ -16,5 +16,6 @@ rm "${OUTFILE_PREFIX}.jpg"
 echo
 
 python "${BASEDIR}/set-multi-xfce4-wallpapers.py" "${OUTFILE_PREFIX}_c-center.jpg" "${OUTFILE_PREFIX}_a-left.jpg" "${OUTFILE_PREFIX}_b-right.jpg"
+xfdesktop --reload
 
 echo -e '\nAll done'
