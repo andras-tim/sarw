@@ -10,7 +10,7 @@ config with ***tool-2***, and set properly on all displays with ***tool-3***.
 
 ## Usage
 
-* Set a random wallpaper (search query: "wallpaper"):
+* Set a random wallpaper (search query: "hd wallpaper"):
 
     ``` bash
     set-a-random-wallpaper.sh
@@ -33,7 +33,7 @@ Download random double-wide wallpaper from Google Image search
 #### Usage
 **``download-random-double-wide-wallpaper.py <output_image_path> [<custom__query>]``**
 
-* Download a random search result for "wallpaper" query:
+* Download a random search result for "hd wallpaper" query:
 
     ``` bash
     download-random-double-wide-wallpaper.py /tmp/test.jpg

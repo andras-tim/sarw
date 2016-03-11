@@ -13,7 +13,7 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 def main(*args):
     image_path = args[0]
 
-    query = 'wallpaper'
+    query = 'hd wallpaper'
     if len(args) > 1:
         query = args[1]
 
