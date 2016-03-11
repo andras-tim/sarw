@@ -2,10 +2,10 @@
 
 Download and set random downloaded wallpapers on Xfce4.
 
-This is a toolchain written for set a random, single and dual monitor wallpapers on multiple monitors.
+This is a toolchain, what written for set a random single & dual monitor wallpapers on multiple monitors.
 
-The ``set-a-random-wallpaper.sh`` wraps these for download a random wallpaper with ***tool-1***, crop for multi monitor
-config with ***tool-2***, and set properly on all displays with ***tool-3***.
+The ``set-a-random-wallpaper.sh`` wraps the whole process: download a random wallpaper with ***tool-1***, crop for multi
+monitor config with ***tool-2***, and set properly on all displays with ***tool-3***.
 
 
 ## Usage
