@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import random
 import requests
 import sys
@@ -8,24 +9,35 @@ from lxml import etree
 from urlparse import urlparse, parse_qsl
 
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36'
+MIN_FILE_SIZE_KB = 500
 
 
 def main(*args):
     image_path = args[0]
 
-    query = 'hd wallpaper'
+    query = 'dual background OR wallpaper'
     if len(args) > 1:
         query = args[1]
 
-    print_state('Fetching wallpapers... ')
+    requests.packages.urllib3.disable_warnings()
+
+    print_state('Fetching wallpapers... {query!r} '.format(query=query))
     response = search_for_image(query=query, safe=True, photo_only=True, width=2 * 1920, height=1080, age_days=30)
     images = parse_images(response.content)
-    print_state('{}\n'.format(len(images)))
+    print_state('>> {} pcs\n'.format(len(images)))
 
-    random_image = random.choice(images)
+    while True:
+        random_image = random.choice(images)
+        print_state('Downloading wallpaper... {!r} >> {!r} '.format(random_image['url'], image_path))
+        download_image(random_image, image_path)
 
-    print_state('Downloading wallpaper... {!r} >> {!r}\n'.format(random_image['url'], image_path))
-    download_image(random_image, image_path)
+        file_size_kb = os.path.getsize(image_path) / 1024
+        print_state('[{} kb]\n'.format(file_size_kb))
+
+        if file_size_kb >= MIN_FILE_SIZE_KB:
+            break
+        print_state('File size is too low; min={}\n\n'.format(MIN_FILE_SIZE_KB))
+
     print_state('Done\n')
 
 
@@ -79,7 +91,7 @@ def download_image(image, destination_path):
         'Referer': image['referer'],
     }
 
-    response = requests.get(image['url'], headers=headers, stream=True)
+    response = requests.get(image['url'], headers=headers, stream=True, verify=False)
     with open(destination_path, 'wb') as fd:
         for chunk in response.iter_content(chunk_size=1024):
             if chunk:
