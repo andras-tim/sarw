@@ -86,11 +86,11 @@ wallpaper.
 * Set the *common* wallpaper on all outputs:
 
     ``` bash
-    set-multi-wallpapers.py '/full/path/common_wallpaper.jpg'
+    set-multi-wallpapers.py '/path/common_wallpaper.jpg'
     ```
 
 * Set wallpapers on all monitor according to ``OUTPUT_POSITIONS``:
 
     ``` bash
-    set-multi-wallpapers.py '/full/path/common_wallpaper.jpg' '/full/path/left_monitor_wallpaper.jpg' '/full/path/right_monitor_wallpaper.jpg'
+    set-multi-wallpapers.py '/path/common_wallpaper.jpg' '/path/left_monitor_wallpaper.jpg' '/path/right_monitor_wallpaper.jpg'
     ```

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import re
 import subprocess
 import sys
@@ -68,9 +69,9 @@ def main(*args):
         return wallpapers[wallpaper_id]
 
     wallpapers = {
-        'common': args[0],
-        'left': args[1] if len(args) >= 3 else args[0],
-        'right': args[2] if len(args) >= 3 else args[0],
+        'common': os.path.abspath(args[0]),
+        'left': os.path.abspath(args[1] if len(args) >= 3 else args[0]),
+        'right': os.path.abspath(args[2] if len(args) >= 3 else args[0]),
     }
 
     # outputs = Xrandr.get_active_outputs()
