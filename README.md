@@ -7,6 +7,8 @@ This is a toolchain, what written for set a random single & dual monitor wallpap
 The [`set-a-random-wallpaper.sh`](set-a-random-wallpaper.sh) wraps the whole process: download a random wallpaper with [***tool-1***](#tool-1-download-random-double-wide-wallpaperpy), crop for multi
 monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy), and set properly on all displays with [***tool-3***](#tool-3-set-multi-xfce4-wallpaperspy).
 
+**Feel free, write your own walpaper setter "[***tool-3***](#tool-3-set-multi-xfce4-wallpaperspy)" and use this toolchain on non-Xfce desktop too!**
+
 ---
 
 *Check my [UserScript](https://gist.github.com/andras-tim/d89344b843e9ebaeade5) what can change New Tab background in Google Chrome.*
