@@ -4,8 +4,8 @@ Download and set random downloaded wallpapers on Xfce4.
 
 This is a toolchain, what written for set a random single & dual monitor wallpapers on multiple monitors.
 
-The ``set-a-random-wallpaper.sh`` wraps the whole process: download a random wallpaper with ***tool-1***, crop for multi
-monitor config with ***tool-2***, and set properly on all displays with ***tool-3***.
+The [`set-a-random-wallpaper.sh`](set-a-random-wallpaper.sh) wraps the whole process: download a random wallpaper with ***[tool-1](#tool-1-download-random-double-wide-wallpaperpy)***, crop for multi
+monitor config with ***[tool-2](#tool-2-crop-wallpaper-for-multi-monitorspy)***, and set properly on all displays with ***[tool-3](#tool-3-set-multi-xfce4-wallpaperspy)***.
 
 
 ## Usage
@@ -25,7 +25,7 @@ monitor config with ***tool-2***, and set properly on all displays with ***tool-
 
 ## Tools
 
-### [tool-1] download-random-double-wide-wallpaper.py
+### [tool-1] [download-random-double-wide-wallpaper.py](download-random-double-wide-wallpaper.py)
 
 Download random double-wide wallpaper from Google Image search
 
@@ -46,7 +46,7 @@ Download random double-wide wallpaper from Google Image search
     ```
 
 
-### [tool-2] crop-wallpaper-for-multi-monitors.py
+### [tool-2] [crop-wallpaper-for-multi-monitors.py](crop-wallpaper-for-multi-monitors.py)
 
 Crop double-wide wallpaper to left, center, right parts
 
@@ -69,7 +69,7 @@ crop-wallpaper-for-multi-monitors.py 'wide_wallpaper.jpg' 'test-wallpaper'
 ```
 
 
-### [tool-3] set-multi-xfce4-wallpapers.py
+### [tool-3] [set-multi-xfce4-wallpapers.py](set-multi-xfce4-wallpapers.py)
 
 Set **Xfce4** wallpapers on multiple monitors
 
