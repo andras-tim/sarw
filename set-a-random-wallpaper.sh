@@ -3,7 +3,7 @@ set -e
 
 BASEDIR="$(dirname "$0")"
 OUTDIR="${HOME}/Pictures/wallpapers/random"
-NAME_PREFIX="$(date +%Y-%m-%d)"
+NAME_PREFIX="$(date +%Y-%V)"
 OUTFILE_PREFIX="${OUTDIR}/${NAME_PREFIX}"
 
 # Main
