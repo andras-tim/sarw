@@ -82,7 +82,7 @@ Set **Xfce4** wallpapers on multiple monitors
 
 #### Configuration
 
-Set placement of monitors by output in ``OUTPUT_POSITIONS`` variable. The not specified monitors will use the *common*
+Set placement of monitors by output in ``MONITOR_POSITIONS`` variable. The not specified monitors will use the *common*
 wallpaper.
 
 
@@ -95,7 +95,7 @@ wallpaper.
     set-multi-wallpapers.py '/path/common_wallpaper.jpg'
     ```
 
-* Set wallpapers on all monitor according to ``OUTPUT_POSITIONS``:
+* Set wallpapers on all monitor according to ``MONITOR_POSITIONS``:
 
     ``` bash
     set-multi-wallpapers.py '/path/common_wallpaper.jpg' '/path/left_monitor_wallpaper.jpg' '/path/right_monitor_wallpaper.jpg'

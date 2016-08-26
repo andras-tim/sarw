@@ -5,67 +5,80 @@ import re
 import subprocess
 import sys
 
-OUTPUT_POSITIONS = {
-    'DP2': 'left',
-    'DP3': 'right',
+"""
+Get current settings from the system:
+
+``` sh
+xfconf-query --channel xfce4-desktop --list \
+    | grep last-image \
+        | while read -r a; do
+            echo -e "$a\t$(xfconf-query --channel xfce4-desktop --property "$a")"
+        done
+```
+"""
+
+MONITOR_POSITIONS = {
+    # 'monitor0': 'left',
+    'monitor1': 'left',
+    'monitor2': 'right',
 }
 
 
-class Xrandr(object):
-    OUTPUT_PATTERN = re.compile('^(?P<name>[^ ]+) (?P<state>[^ ]+) (|(?P<options>[^(]+) )\(.*$')
-
-    @classmethod
-    def run_xrandr(cls):
-        stdout = subprocess.check_output(['xrandr']).decode("utf-8")
-        return stdout.splitlines()
-
-    @classmethod
-    def get_outputs(cls):
-        lines = cls.run_xrandr()
-
-        outputs = []
-        for line in lines:
-            matches = Xrandr.OUTPUT_PATTERN.match(str(line))
-            if matches:
-                outputs.append(matches.groupdict())
-
-        return outputs
-
-    @classmethod
-    def get_connected_outputs(cls):
-        return [output for output in cls.get_outputs() if output['state'] == 'connected']
-
-    @classmethod
-    def get_active_outputs(cls):
-        return [output for output in cls.get_connected_outputs() if output['options']]
-
-
 class Desktop(object):
+    WORKSPACE_PATH_TEMPLATE = re.compile(
+        r'^/backdrop/(?P<screen>screen[^/]*)/(?P<monitor>monitor[^/]*)/(?P<workspace>workspace[^/]*)/.*$'
+    )
+
     @classmethod
-    def set_wallpaper(cls, output_name, wallpaper_path):
-        print('Set wallpaper of {output_name!r} to {wallpaper_path!r}'.format(
-            output_name=output_name,
+    def get_workspaces(cls):
+        paths = cls._xfconf_query_desktop(
+            '--property', '/backdrop',
+            '--list',
+        )
+
+        workspaces = {}
+        for path in paths:
+            matches = cls.WORKSPACE_PATH_TEMPLATE.match(path)
+            if matches is not None:
+                matches_dict = matches.groupdict()
+                workspaces[','.join(matches_dict.values())] = matches_dict
+
+        return workspaces.values()
+
+    @classmethod
+    def set_wallpaper(cls, wallpaper_path, **workspace):
+        print('Set wallpaper of {screen}/{monitor}/{workspace} to {wallpaper_path!r}'.format(
             wallpaper_path=wallpaper_path,
+            **workspace
         ))
 
-        cls._run_set_wallpaper(output_name, None)
-        cls._run_set_wallpaper(output_name, wallpaper_path)
+        cls._run_set_wallpaper(wallpaper_path=None, **workspace)
+        cls._run_set_wallpaper(wallpaper_path=wallpaper_path, **workspace)
 
     @classmethod
-    def _run_set_wallpaper(cls, output_name, wallpaper_path):
-        subprocess.check_call([
-            'xfconf-query',
-            '-c', 'xfce4-desktop',
-            '-p', '/backdrop/screen0/monitor{output_name}/workspace0/last-image'.format(output_name=output_name),
-            '-n',
-            '-t', 'string',
-            '-s', '' if wallpaper_path is None else wallpaper_path,
-        ])
+    def _run_set_wallpaper(cls, screen, monitor, workspace, wallpaper_path):
+        path = '/backdrop/{screen}/{monitor}/{workspace}/last-image'.format(
+            screen=screen, monitor=monitor, workspace=workspace)
+
+        cls._xfconf_query_desktop(
+            '--create',
+            '--property', path,
+            '--type', 'string',
+            '--set', '' if wallpaper_path is None else wallpaper_path,
+        )
+
+    @classmethod
+    def _xfconf_query_desktop(cls, *arguments):
+        command = ['xfconf-query', '--channel', 'xfce4-desktop']
+        command.extend(arguments)
+
+        raw_output = subprocess.check_output(command)
+        return raw_output.decode("utf-8").splitlines()
 
 
 def main(*args):
     def get_wallpaper_for_output(output_name):
-        wallpaper_id = OUTPUT_POSITIONS.get(output_name, 'common')
+        wallpaper_id = MONITOR_POSITIONS.get(output_name, 'common')
         return wallpapers[wallpaper_id]
 
     wallpapers = {
@@ -74,11 +87,10 @@ def main(*args):
         'right': os.path.abspath(args[2] if len(args) >= 3 else args[0]),
     }
 
-    # outputs = Xrandr.get_active_outputs()
-    outputs = Xrandr.get_outputs()
-    for output in outputs:
-        wallpaper_path = get_wallpaper_for_output(output['name'])
-        Desktop.set_wallpaper(output['name'], wallpaper_path)
+    workspaces = Desktop.get_workspaces()
+    for workspace in workspaces:
+        wallpaper_path = get_wallpaper_for_output(workspace['monitor'])
+        Desktop.set_wallpaper(wallpaper_path=wallpaper_path, **workspace)
 
 
 if __name__ == '__main__':
