@@ -18,9 +18,9 @@ xfconf-query --channel xfce4-desktop --list \
 """
 
 MONITOR_POSITIONS = {
-    # 'monitor0': 'left',
-    'monitor1': 'left',
-    'monitor2': 'right',
+    'monitor0': 'left',
+    'monitor1': 'right',
+    # 'monitor2': 'right',
 }
 
 
@@ -43,7 +43,7 @@ class Desktop(object):
                 matches_dict = matches.groupdict()
                 workspaces[','.join(matches_dict.values())] = matches_dict
 
-        return workspaces.values()
+        return sorted(workspaces.values())
 
     @classmethod
     def set_wallpaper(cls, wallpaper_path, **workspace):
