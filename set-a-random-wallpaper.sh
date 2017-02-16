@@ -23,7 +23,7 @@ then
     then
         mkdir -p "${OUTDIR}"
 
-        python "${BASEDIR}/download-random-double-wide-wallpaper.py" "${DOUBLE_PATH}" "$@"
+        python "${BASEDIR}/download-double-wide-wallpaper-from-google.py" "${DOUBLE_PATH}" "$@"
         echo
     fi
 
