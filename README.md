@@ -4,7 +4,7 @@ Download and set random downloaded wallpapers on Xfce4.
 
 This is a toolchain, what written for set a random single & dual monitor wallpapers on multiple monitors.
 
-The [`set-a-random-wallpaper.sh`](set-a-random-wallpaper.sh) wraps the whole process: download a random wallpaper with [***tool-1***](#tool-1-download-double-wide-wallpaper-from-googlepy), crop for multi
+The [`set-a-random-wallpaper.sh`](set-a-random-wallpaper.sh) wraps the whole process: download a random wallpaper with [***tool-1***](#tool-1-download-double-wide-wallpaper-from-wallpaperswidepy), crop for multi
 monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy), and set properly on all displays with [***tool-3***](#tool-3-set-multi-xfce4-wallpaperspy).
 
 **Feel free, write your own walpaper setter "[***tool-3***](#tool-3-set-multi-xfce4-wallpaperspy)" and use this toolchain on non-Xfce desktop too!**
@@ -16,16 +16,10 @@ monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy),
 
 ## Usage
 
-* Set a random wallpaper (search query: "dual background OR wallpaper"):
+* Download and set a random wallpaper:
 
     ``` bash
     set-a-random-wallpaper.sh
-    ```
-
-* Set a random wallpaper (search query: "funny"):
-
-    ``` bash
-    set-a-random-wallpaper.sh 'funny'
     ```
 
 *This will download and hold one image per week*
@@ -33,24 +27,19 @@ monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy),
 
 ## Tools
 
-### [tool-1] [download-double-wide-wallpaper-from-google.py](download-double-wide-wallpaper-from-google.py)
+### [tool-1] [download-double-wide-wallpaper-from-wallpaperswide.py](download-double-wide-wallpaper-from-wallpaperswide.py)
 
-Download random double-wide wallpaper from Google Image search
+Download a random double-wide wallpaper from [http://wallpaperswide.com/](http://wallpaperswide.com/3840x1080-wallpapers-r/)
 
 
 #### Usage
-**``download-double-wide-wallpaper-from-google.py <output_image_path> [<custom__query>]``**
+**``download-double-wide-wallpaper-from-wallpaperswide.py <output_image_path>``**
 
-* Download a random search result for "dual background OR wallpaper" query:
-
-    ``` bash
-    download-double-wide-wallpaper-from-google.py /tmp/test.jpg
-    ```
-
-* Download a random search result for "funny" query:
+* Download random wallpaper:
 
     ``` bash
-    download-double-wide-wallpaper-from-google.py /tmp/test.jpg 'funny'
+    download-double-wide-wallpaper-from-wallpaperswide.py /tmp/test.jpg
+
     ```
 
 
