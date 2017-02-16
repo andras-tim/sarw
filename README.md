@@ -28,6 +28,8 @@ monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy),
     set-a-random-wallpaper.sh 'funny'
     ```
 
+*This will download and hold one image per week*
+
 
 ## Tools
 
