@@ -37,7 +37,7 @@ class DownloadDoubleWideWallpaperFromWallpaperswide(BaseWallpaperDownloader):
 
         self._print_state('Updating list of old wallpapers...')
         with open(self.LINKS_PATH, 'w') as fd:
-            json.dump(list(old_links), fd)
+            json.dump(list(old_links), fd, indent=2)
         self._print_state(' [{}]\n'.format(len(old_links)))
 
     def __fetch_new_wallpapers(self, old_links):
