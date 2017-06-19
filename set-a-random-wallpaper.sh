@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eufo pipefail
 
 BASEDIR="$(dirname "$0")"
 OUTDIR="${HOME}/Pictures/wallpapers/random"
@@ -16,7 +16,28 @@ RIGHT_PATH="${OUTFILE_PREFIX}${RIGHT_SUFFIX}"
 CENTER_PATH="${OUTFILE_PREFIX}${CENTER_SUFFIX}"
 
 
+function remove_current()
+{
+    local path="$1"
+
+    if [ -e "${path}" ]
+    then
+        echo "Removing current wallpapers... ${path}"
+        rm "${path}"
+    fi
+}
+
+
 # Main
+if [ $# -gt 0 ] && [ "$1" == '--new' ]
+then
+    remove_current "${DOUBLE_PATH}"
+    remove_current "${LEFT_PATH}"
+    remove_current "${RIGHT_PATH}"
+    remove_current "${CENTER_PATH}"
+    echo
+fi
+
 if [ ! -e "${LEFT_PATH}" ] || [ ! -e "${RIGHT_PATH}" ] || [ ! -e "${CENTER_PATH}" ]
 then
     if [ ! -e "${DOUBLE_PATH}" ]

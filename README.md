@@ -22,7 +22,15 @@ monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy),
     set-a-random-wallpaper.sh
     ```
 
-*This will download and hold one image per week*
+  *This will downloads and holds one image per week*
+
+* Download and set a new random wallpaper:
+
+    ``` bash
+    set-a-random-wallpaper.sh --new
+    ```
+
+  *This will remove the current image and download a new one*
 
 
 ## Tools
