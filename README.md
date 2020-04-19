@@ -32,6 +32,15 @@ monitor config with [***tool-2***](#tool-2-crop-wallpaper-for-multi-monitorspy),
 
   *This will remove the current image and download a new one*
 
+* Download and set a random wallpaper for custom monitors sizes:
+
+    ``` bash
+    set-a-random-wallpaper.sh 1920,1080 1920,1200 1920,1200 65
+    #                         ^-center  ^-left    ^-right   ^-gap between left and right
+    ```
+
+  *This will prepare wallpapers (scale w/ aspect ratio then crop) e.g. for an 1920x1080 main monitor and two external monitors w/ 1920x1200 and cropped out 65px for monitor frames*
+
 
 ## Tools
 
@@ -53,11 +62,17 @@ Download a random double-wide wallpaper from [http://wallpaperswide.com/](http:/
 
 ### [tool-2] [crop-wallpaper-for-multi-monitors.py](crop-wallpaper-for-multi-monitors.py)
 
-Crop double-wide wallpaper to left, center, right parts
+Crop double-wide wallpaper to left, center, right parts.
+
+The script supports different monitor resolution.
 
 
 #### Usage
 **``crop-wallpaper-for-multi-monitors.py <source_path> <destination_path_prefix>``**
+
+* **environment**:
+    * a laptop monitor with 1920x1080 resolution
+    * two external monitors with 1920x1200 resolution, but not frame-less (sum ~65px width)
 
 * **example input**:
 
@@ -65,12 +80,16 @@ Crop double-wide wallpaper to left, center, right parts
 
 * **example output**:
 
-    * ``test-wallpaper_a-left.jpg`` 1920x1080, left crop of input file
-    * ``test-wallpaper_b-right.jpg`` 1920x1080, right crop of input file
-    * ``test-wallpaper_c-center.jpg`` 1920x1080, center crop of input file
+    * ``test-wallpaper_a-left.jpg`` 1920x1200, left crop of scaled input file
+    * ``test-wallpaper_b-right.jpg`` 1920x1200, right crop of scaled input file
+    * ``test-wallpaper_c-center.jpg`` 1920x1080, center crop of original input file
 
 ``` bash
-crop-wallpaper-for-multi-monitors.py 'wide_wallpaper.jpg' 'test-wallpaper'
+crop-wallpaper-for-multi-monitors.py 'wide_wallpaper.jpg' 'test-wallpaper' \
+    '_a-left.jpg,auto,1920,1200'  '_b-right.jpg,65,1920,1200'
+
+crop-wallpaper-for-multi-monitors.py 'wide_wallpaper.jpg' 'test-wallpaper' \
+    '_c-center.jpg,auto,1920,1080'
 ```
 
 
